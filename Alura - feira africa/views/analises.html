@@ -5,33 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alura - principal</title>
     <link rel="stylesheet" href="/style/style.css">
+    <style>
+        .dropdown {
+            position: absolute;
+            top: 60px; /* ajuste conforme o layout */
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 100;
+            border-radius: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .dropdown button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .dropdown button:hover {
+            background-color: #e60000;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        #nome-usuario {
+            cursor: pointer;
+        }
+    </style>
 </head>
-<!-- PAGINA OPÇOES DE ANALISE -->
+
 <body>
+    <!-- PAGINA OPÇÕES DE ANÁLISE -->
     <nav>
-        <img src="/static/ui-design/Group 19674.png" alt="">
+        <img src="/static/ui-design/Group 19674.png" alt="Logo">
         <p id="nome-usuario"></p>
+        <div id="dropdown-menu" class="dropdown hidden">
+            <button onclick="terminarSessao()">Terminar Sessão</button>
+        </div>
     </nav>
+
     <hr><br><br>
+
     <div class="cabecario">
-        <p class="p-info" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus eius eaque enim, ipsa repudiandae obcaecati magnam quim.</p>
+        <p class="p-info">Selecione a opção que deseja:</p>
     </div>
-    <section class="analise" >
+
+    <section class="analise">
         <br>
         <a href="/views/anRapida.html" class="link-analise">Análise Rápida</a>
         <a href="#" class="link-analise">Análise Completa</a>
         <a href="#" class="link-analise">Verificar Medicamento</a>
     </section>
-    <section class="sec-btn" >
+
+    <section class="sec-btn">
         <button>Cancelar</button>
     </section>
+
     <script>
-  const nome = localStorage.getItem("usuario");
-  if (nome) {
-    document.getElementById("nome-usuario").innerText = nome;
-  } else {
-    window.location.href = "/login.html"; // se não estiver logado, volta para o login
-  }
-</script>
+        const nome = localStorage.getItem("usuario");
+        const nomeUsuario = document.getElementById("nome-usuario");
+        const dropdown = document.getElementById("dropdown-menu");
+
+        if (nome) {
+            nomeUsuario.innerText = nome;
+        } else {
+            // window.location.href = "/login.html"; // Descomente para forçar login
+        }
+
+        nomeUsuario.addEventListener("click", () => {
+            dropdown.classList.toggle("hidden");
+        });
+
+        function terminarSessao() {
+            localStorage.removeItem("usuario");
+            window.location.href = "/auth/login.html";
+        }
+
+        // Esconde o dropdown se clicar fora
+        document.addEventListener("click", function(event) {
+            if (!nomeUsuario.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.add("hidden");
+            }
+        });
+    </script>
 </body>
 </html>

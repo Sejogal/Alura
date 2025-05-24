@@ -16,23 +16,23 @@
   </style>
 </head>
 <body>
-  <form action="" id="form-cadastro">
+  <form id="form-cadastro">
     <img src="/static/ui-design/Alura.png" alt="Logo da Alura" class="logo" />
     <h2>Registe-se agora</h2>
 
     <label for="nome">Nome</label>
-    <input type="text" name="nome" id="nome" placeholder="Nome completo" required />
+    <input type="text" id="nome" placeholder="Nome completo" required />
 
     <label for="data">Data de nascimento</label>
-    <input type="date" name="data_nascimento" id="data" required />
+    <input type="date" id="data" required />
 
     <label for="email">Email</label>
-    <input type="email" name="email" id="email" placeholder="seuemail@exemplo.com" required />
+    <input type="email" id="email" placeholder="seuemail@exemplo.com" required />
 
     <div class="grupo-flex">
       <div class="campo">
         <label for="genero">Gênero</label>
-        <select name="genero" id="genero" required>
+        <select id="genero" required>
           <option value="">Selecione</option>
           <option value="masculino">Masculino</option>
           <option value="feminino">Feminino</option>
@@ -42,20 +42,20 @@
 
       <div class="campo">
         <label for="peso">Peso (kg)</label>
-        <input type="number" name="peso" id="peso" placeholder="Ex: 70" required />
+        <input type="number" id="peso" placeholder="Ex: 70" required />
       </div>
 
       <div class="campo">
         <label for="altura">Altura (cm)</label>
-        <input type="number" name="altura" id="altura" placeholder="Ex: 170" required />
+        <input type="number" id="altura" placeholder="Ex: 170" required />
       </div>
     </div>
 
     <label for="senha">Senha</label>
-    <input type="password" name="password" id="senha" placeholder="********" required />
+    <input type="password" id="senha" placeholder="********" required />
 
     <label for="doencas">Doenças que teve anteriormente</label><br />
-    <textarea name="doencas" id="doencas"></textarea><br><br>
+    <textarea id="doencas"></textarea><br><br>
 
     <button type="button" class="btn-cancelar" onclick="abrirPopup()">Cancelar Registo</button>
     <button type="submit" class="btn-concluir">Concluir Registo</button>
@@ -82,11 +82,11 @@
       const senha = document.getElementById("senha").value;
       const data_nascimento = document.getElementById("data").value;
       const genero = document.getElementById("genero").value;
-      const peso = document.getElementById("peso").value;
-      const altura = document.getElementById("altura").value;
+      const peso = parseFloat(document.getElementById("peso").value);
+      const altura = parseFloat(document.getElementById("altura").value);
       const doencas = document.getElementById("doencas").value;
 
-      const body = {
+      const userData = {
         nome,
         email,
         senha,
@@ -101,13 +101,28 @@
         const resposta = await fetch("https://alura-6i3v.onrender.com/auth/register/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
+          body: JSON.stringify(userData)
         });
 
         const resultado = await resposta.json();
 
         if (resposta.ok) {
           localStorage.setItem("usuario", nome);
+
+          // Enviar para /patient/profile/ (se desejar)
+          await fetch("https://alura-6i3v.onrender.com/patient/profile/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              user_id: 1, // você pode obter do backend ou gerar dinâmico
+              age: calcularIdade(data_nascimento),
+              gender: genero,
+              height: altura,
+              weight: peso,
+              pre_existing_conditions: doencas
+            })
+          });
+
           window.location.href = "/views/analises.html";
         } else {
           alert("Erro no registo: " + (resultado.message || "Tente novamente."));
@@ -117,6 +132,17 @@
         console.error(erro);
       }
     });
+
+    function calcularIdade(data) {
+      const hoje = new Date();
+      const nascimento = new Date(data);
+      let idade = hoje.getFullYear() - nascimento.getFullYear();
+      const m = hoje.getMonth() - nascimento.getMonth();
+      if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+        idade--;
+      }
+      return idade;
+    }
 
     function abrirPopup() {
       document.getElementById("popup").style.display = "block";
