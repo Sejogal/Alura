@@ -1,0 +1,239 @@
+/*2048 - 1536*/
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #F0FAFF;
+}
+a{
+    text-decoration: none;
+}
+nav{
+    display: flex;
+    align-items: center;
+}
+nav p{
+    margin-left: 70%;
+}
+.p-info{
+    color: #00112B;
+    font-size: 20px;
+}
+header{
+    display: flex;
+    justify-content: center;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+header img{
+    padding: 20px;
+    animation: pulse 2s infinite ease-in-out;
+}
+.cabecario{
+    margin-left: 4%;
+}
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2); /* Aumenta 20% */
+    }
+    100% {
+      transform: scale(1); /* Volta ao normal */
+    }
+  }
+
+.analise{
+    margin: 3%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.link-analise{
+    padding: 9%;
+    border: 1px solid #68B4E1;
+    border-radius: 20px;
+    color: #FFFFFF;
+    margin: 1%;
+    background-color: #DAF2FF; 
+    color:#000920;
+    font-weight: bold;
+}
+.link-analise:hover{
+    background-color: #257CFF;
+    color: #FFFFFF;
+}
+.link-sintoma{
+    padding: 5%;
+    border: 1px solid #316E8D;
+    border-radius: 20px;
+    color: #FFFFFF;
+    margin: 1%;
+    background-color: #DAF2FF; 
+    color:#000920;
+    font-weight: 1;
+}
+.input-check{
+    position: relative;
+    bottom: 40px; /*75*/
+    right: 35px; /*70*/
+}
+.link-sintoma:hover{
+    border: 5px solid #316E8D;
+}
+.sec-btn{
+    margin-left: 3%;
+}
+.sec-btn button{
+    color: #000000;
+    background-color: #DAF2FF;
+    border: 4px solid #68B4E1;
+    padding: 1%;
+    border-radius: 4px;
+}
+.secResponse{
+    background-color: #FFFFFF;
+    border-radius: 46px;
+    position: relative;
+    bottom: 300px;
+    padding: 3%;
+    width: 40%;
+    height: 400px;
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: center;
+}
+.secResponse button{
+    margin-top: 15%;
+    padding: 3%;
+    border-radius: 20px;
+}
+.hidden{
+    display: none;
+}
+/*LOGIN E REGISTRO*/
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgba(255, 255, 255, 0.788);
+    height: 100%;
+    width: 100%;
+}
+
+form {
+    padding: 40px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: #007bff;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: #007bff;
+}
+
+.entrar {
+    margin-top: 20px;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.entrar:hover {
+    background-color: #0054ad;
+}
+
+/* Gênero, Peso e Altura lado a lado */
+.grupo-flex {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.campo {
+    flex: 1;
+    min-width: 100px;
+}
+.btn-concluir{
+    background-color: #257CFF;
+    color: #FFFFFF;
+    padding: 1%;
+    border-radius: 20px;
+    border: none;
+}
+.btn-cancelar{
+    background-color: #C8C8C8;
+    color: #1F1F1F;
+    padding: 1%;
+    border-radius: 20px;
+    border: none;
+}
+label{
+    color: #404040;
+}
+/*POPUP*/
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 0 15px black;
+}
+
+.popup-botoes button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.popup-botoes button:hover {
+  opacity: 0.8;
+}

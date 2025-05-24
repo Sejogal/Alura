@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alura - Registro</title>
+  <link rel="stylesheet" href="/style/style.css" />
+  <style>
+    h2 {
+      color: #11489a;
+    }
+    textarea {
+      width: 100%;
+      border-radius: 39px;
+    }
+  </style>
+</head>
+<body>
+  <form action="" id="form-cadastro">
+    <img src="/static/ui-design/Alura.png" alt="Logo da Alura" class="logo" />
+    <h2>Registe-se agora</h2>
+
+    <label for="nome">Nome</label>
+    <input type="text" name="nome" id="nome" placeholder="Nome completo" required />
+
+    <label for="data">Data de nascimento</label>
+    <input type="date" name="data_nascimento" id="data" required />
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" placeholder="seuemail@exemplo.com" required />
+
+    <div class="grupo-flex">
+      <div class="campo">
+        <label for="genero">Gênero</label>
+        <select name="genero" id="genero" required>
+          <option value="">Selecione</option>
+          <option value="masculino">Masculino</option>
+          <option value="feminino">Feminino</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="peso">Peso (kg)</label>
+        <input type="number" name="peso" id="peso" placeholder="Ex: 70" required />
+      </div>
+
+      <div class="campo">
+        <label for="altura">Altura (cm)</label>
+        <input type="number" name="altura" id="altura" placeholder="Ex: 170" required />
+      </div>
+    </div>
+
+    <label for="senha">Senha</label>
+    <input type="password" name="password" id="senha" placeholder="********" required />
+
+    <label for="doencas">Doenças que teve anteriormente</label><br />
+    <textarea name="doencas" id="doencas"></textarea><br><br>
+
+    <button type="button" class="btn-cancelar" onclick="abrirPopup()">Cancelar Registo</button>
+    <button type="submit" class="btn-concluir">Concluir Registo</button>
+
+    <!-- POPUP DE CANCELAMENTO -->
+    <div id="popup" class="popup" style="display: none;">
+      <div class="popup-content">
+        <p>Tem certeza que deseja cancelar o Registo?</p>
+        <div class="popup-botoes">
+          <button class="btn-cancelar" style="background-color: #ed2828; color: #ffffff;" onclick="inicio()">Cancelar Registo</button>
+          <button onclick="fecharPopup()" style="background-color: #48bd69; color: #ffffff;">Continuar Registo</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- SCRIPT DE REGISTO -->
+  <script>
+    document.getElementById("form-cadastro").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+      const data_nascimento = document.getElementById("data").value;
+      const genero = document.getElementById("genero").value;
+      const peso = document.getElementById("peso").value;
+      const altura = document.getElementById("altura").value;
+      const doencas = document.getElementById("doencas").value;
+
+      const body = {
+        nome,
+        email,
+        senha,
+        data_nascimento,
+        genero,
+        peso,
+        altura,
+        doencas
+      };
+
+      try {
+        const resposta = await fetch("https://alura-6i3v.onrender.com/auth/register/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        const resultado = await resposta.json();
+
+        if (resposta.ok) {
+          localStorage.setItem("usuario", nome);
+          window.location.href = "/views/analises.html";
+        } else {
+          alert("Erro no registo: " + (resultado.message || "Tente novamente."));
+        }
+      } catch (erro) {
+        alert("Erro ao conectar com o servidor.");
+        console.error(erro);
+      }
+    });
+
+    function abrirPopup() {
+      document.getElementById("popup").style.display = "block";
+    }
+
+    function fecharPopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    function inicio() {
+      window.location.href = "/index.html";
+    }
+  </script>
+
+  <script src="/script/script.js"></script>
+</body>
+</html>

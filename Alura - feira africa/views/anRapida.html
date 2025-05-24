@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alura - Análise Rápida</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <style>
+        .link-sintoma.selected {
+            background-color: #48BD69;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <img src="/static/ui-design/Group 19674.png" alt="Logo">
+        <p>{{ user }}</p>
+    </nav>
+    <hr><br><br>
+
+    <div class="cabecario">
+        <h2>Análise Rápida</h2>
+        <p class="p-info">Seleccione as opções com os sintomas que está sentindo neste momento</p>
+    </div>
+
+    <section class="analise">
+        <br>
+        <div class="link-sintoma"><p>Dor de cabeça</p></div>
+        <div class="link-sintoma"><p>Tontura</p></div>
+        <div class="link-sintoma"><p>Febre</p></div>
+        <div class="link-sintoma"><p>Fraqueza corporal</p></div>
+        <div class="link-sintoma" style="background-color: #FFFFFF;" onclick="sms()">
+            <p>Adicionar Sintoma</p>
+        </div>
+    </section>
+
+    <section class="sec-btn">
+        <button style="background-color: #ED2828; color: #FFFFFF; border: none;" id="cancelar" onclick="inicio()">Cancelar Análise</button>
+        <button style="background-color: #48BD69; color: #FFFFFF; border: none;" id="obterResultado">Obter Resultado</button>
+    </section>
+
+    <script>
+        // Função de alerta para o botão "Adicionar Sintoma"
+        function sms() {
+            alert("Indisponível no momento, tente mais tarde :)");
+        }
+
+        // Selecionar sintomas (exceto o "Adicionar Sintoma")
+        const sintomasDivs = document.querySelectorAll('.link-sintoma');
+        sintomasDivs.forEach(item => {
+            if (item.innerText.trim() !== "Adicionar Sintoma") {
+                item.addEventListener('click', () => {
+                    item.classList.toggle('selected');
+                });
+            }
+        });
+
+        // Botão "Obter Resultado"
+        document.getElementById("obterResultado").addEventListener("click", async () => {
+            const sintomas = Array.from(document.querySelectorAll('.link-sintoma.selected'))
+                .map(div => div.innerText.trim());
+
+            if (sintomas.length === 0) {
+                alert("Por favor selecione pelo menos um sintoma.");
+                return;
+            }
+
+            try {
+                const resposta = await fetch("https://alura-6i3v.onrender.com/analisar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ sintomas })
+                });
+
+                const resultado = await resposta.json();
+                alert("Diagnóstico sugerido: " + resultado.diagnostico);
+            } catch (erro) {
+                alert("Erro ao obter resultado. Tente novamente.");
+                console.error(erro);
+            }
+        });
+
+        // Função fictícia de cancelamento (você pode redirecionar para outra página se quiser)
+        function inicio() {
+            alert("Análise cancelada.");
+        }
+    </script>
+
+    <script src="/script/script.js"></script>
+</body>
+</html>

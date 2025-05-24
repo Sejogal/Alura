@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alura - Iniciar sessão</title>
+  <link rel="stylesheet" href="/style/style.css" />
+  <style>
+    h2 {
+      color: #11489a;
+    }
+    * {
+      text-align: center;
+    }
+    .container {
+      margin-left: 25%;
+      margin-right: 25%;
+    }
+    .container label {
+      float: left;
+    }
+    a {
+      color: #002967;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form action="" id="form-login">
+      <img src="/static/ui-design/Alura.png" alt="" class="logo" />
+      <h1>Iniciar sessão</h1>
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required />
+      <label for="password">Senha</label>
+      <input type="password" name="password" id="senha" required />
+      <button type="submit" class="entrar">Entrar</button><br /><br />
+      <p>Não tem conta? <a href="/auth/Cadastro.html">Registe-se</a></p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("form-login").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      try {
+        const response = await fetch("https://alura-6i3v.onrender.com/auth/login/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, senha })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem("usuario", data.nome || data.user || "Usuário");
+          window.location.href = "/views/analises.html";
+        } else {
+          alert("Erro: " + (data.message || "Falha ao fazer login."));
+        }
+      } catch (error) {
+        alert("Erro ao conectar com o servidor.");
+        console.error(error);
+      }
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

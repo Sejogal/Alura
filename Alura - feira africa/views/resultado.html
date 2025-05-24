@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado da Análise</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+      color: #000;
+    }
+
+    .container {
+      max-width: 500px;
+      background: #fff;
+      padding: 30px;
+      margin: 80px auto;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo h1 {
+      color: #007bff;
+      margin: 0;
+      font-size: 2em;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    hr {
+      margin: 20px 0;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s;
+    }
+
+    .btn-red {
+      background-color: #e74c3c;
+    }
+
+    .btn-red:hover {
+      background-color: #c0392b;
+    }
+
+    .btn-green {
+      background-color: #2ecc71;
+    }
+
+    .btn-green:hover {
+      background-color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="/static/ui-design/Alura.png" class="logo" alt="">
+    </div>
+
+    <h2>Resultado da Análise Rápida</h2>
+    <p><strong>{{ user }}</strong></p>
+    <hr>
+
+    <p>Com base nos sintomas fornecidos por si:<br>
+      <strong>Dor de Cabeça, Fraqueza corporal, Dor de Cabeça e Tontura</strong>
+    </p>
+
+    <p><strong>Acreditamos que possas ter:</strong><br>
+      <span style="font-size: 1.6em; font-weight: bold;">{{ doença }}</span>
+    </p>
+
+    <p style="font-size: 0.9em; color: #555;">
+      {{ tempo analise }}
+    </p>
+
+    <hr>
+    <p style="text-align: center;">Certifique fazendo uma <strong>Análise Completa</strong></p>
+
+    <div class="buttons">
+      <button class="btn btn-red">Não, Obrigado</button>
+      <button class="btn btn-green">Fazer Análise Completa</button>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alura - principal</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+<!-- PAGINA OPÇOES DE ANALISE -->
+<body>
+    <nav>
+        <img src="/static/ui-design/Group 19674.png" alt="">
+        <p id="nome-usuario"></p>
+    </nav>
+    <hr><br><br>
+    <div class="cabecario">
+        <p class="p-info" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus eius eaque enim, ipsa repudiandae obcaecati magnam quim.</p>
+    </div>
+    <section class="analise" >
+        <br>
+        <a href="/views/anRapida.html" class="link-analise">Análise Rápida</a>
+        <a href="#" class="link-analise">Análise Completa</a>
+        <a href="#" class="link-analise">Verificar Medicamento</a>
+    </section>
+    <section class="sec-btn" >
+        <button>Cancelar</button>
+    </section>
+    <script>
+  const nome = localStorage.getItem("usuario");
+  if (nome) {
+    document.getElementById("nome-usuario").innerText = nome;
+  } else {
+    window.location.href = "/login.html"; // se não estiver logado, volta para o login
+  }
+</script>
+</body>
+</html>
